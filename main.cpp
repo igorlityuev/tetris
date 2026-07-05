@@ -1,16 +1,14 @@
 #include "raylib.h"
+#include "setup/game.hpp"
 
-#include "setup/grid.hpp"
-#include "setup/blocks.hpp"
 
 
 int main() {
 
     const int ScreenWidth = 300, ScreenHeight=600;
+    Game g = Game();
 
-    Grid g = Grid();
 
-    TBlock lb = TBlock();
 
     InitWindow(ScreenWidth, ScreenHeight, "raylib test");
     Color bg = {60, 59, 69, 255};
@@ -19,10 +17,10 @@ int main() {
 
 
     while (!WindowShouldClose()) {
+        g.HandleInput();
         BeginDrawing();
         ClearBackground(bg);
         g.Draw();
-        lb.Draw();
         EndDrawing();
     }
 

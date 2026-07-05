@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "Colors.hpp"
-#define Size 30
+#define SizeGame 30
 
 
 class Grid

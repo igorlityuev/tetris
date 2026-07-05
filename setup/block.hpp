@@ -1,5 +1,5 @@
 #pragma once
-#define Size 30
+#define SizeGame 30
 #include "pos.hpp"
 #include <map>
 #include <vector>
@@ -11,7 +11,12 @@ public:
     int id;
     std::map<int, std::vector<Pos>> cells;
     void Draw();
-private:
-    int routation;
+    int GetSize();
+    void Move(int move_x, int move_y);
+    int rotation;
 
+
+private:
+    int move_x,move_y;
+    std::vector<Pos> GetCells();
 };
