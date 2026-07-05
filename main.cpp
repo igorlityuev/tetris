@@ -1,4 +1,5 @@
-#include "setup/lib.hpp"
+#include "raylib.h"
+
 #include "setup/grid.hpp"
 #include "setup/blocks.hpp"
 
@@ -9,7 +10,7 @@ int main() {
 
     Grid g = Grid();
 
-    LBlock lb =LBlock();
+    TBlock lb = TBlock();
 
     InitWindow(ScreenWidth, ScreenHeight, "raylib test");
     Color bg = {60, 59, 69, 255};

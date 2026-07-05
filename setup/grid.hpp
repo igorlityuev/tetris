@@ -1,11 +1,14 @@
 #pragma once
 
-#include "lib.hpp"
+#include <vector>
+#include "Colors.hpp"
+#define Size 30
+
 
 class Grid
 {
 private:
-    int height, width, size;
+    int height, width;
     std::vector<Color> colors;
 
     public:

@@ -1,7 +1,7 @@
-#include "lib.hpp"
+#include <vector>
+#include "raylib.h"
 
-
-std::vector<Color> GetColors()
+static std::vector<Color> GetColors()
 {
     return {
         {128,128,128,255},

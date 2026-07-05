@@ -1,9 +1,10 @@
 #include "block.hpp"
 #include <raylib.h>
+#include "Colors.hpp"
 
 
 Block::Block(){
-    routation = 0;
+    routation = 2;
 
 }
 

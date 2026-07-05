@@ -1,7 +1,8 @@
 #pragma once
-#include "lib.hpp"
+#define Size 30
 #include "pos.hpp"
-
+#include <map>
+#include <vector>
 
 
 class Block{
