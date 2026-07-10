@@ -15,15 +15,29 @@ public:
     Game();
     Grid grid;
 
+
+
+
     void Draw();
     void HandleInput();
+    void MoveDown();
 private:
-    void ChangeFigure();
 
-    std::vector<Block> bloks;
+    std::vector<Block> blocks;
     Block currentBlock;
     void Rotation();
-    void MoveDown();
+    void CheckY();
+
+
+
+    Block ChangeFigure();    
+    
+    bool IsEmpty();
+    bool IsOutSite();
+    bool IsTest();
+
     void MoveLeft();
     void MoveRight();
+    void Lockblock();
+
 };

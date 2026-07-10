@@ -8,11 +8,16 @@
 class Grid
 {
 private:
-    int height, width;
     std::vector<Color> colors;
 
-    public:
+public:
+    int height, width;
     int grid[20][10];
+    void ClearY(int y);
+    void Down(int y, int count);
+    void MoveDownGrid(int count);
+
+
     Grid();
     void Draw();
 };

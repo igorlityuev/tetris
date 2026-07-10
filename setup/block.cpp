@@ -14,7 +14,7 @@ void Block::Draw(){
     std::vector<Pos> title = GetCells();
 
     for (Pos i : title){
-        DrawRectangle(i.x * SizeGame + 1, i.y * SizeGame + 1, SizeGame - 1, SizeGame - 1,GetColors()[2]);
+        DrawRectangle(i.x * SizeGame + 1, i.y * SizeGame + 1, SizeGame - 1, SizeGame - 1,GetColors()[id]);
     }
 }
 

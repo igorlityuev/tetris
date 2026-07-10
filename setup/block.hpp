@@ -15,8 +15,8 @@ public:
     void Move(int move_x, int move_y);
     int rotation;
 
+    std::vector<Pos> GetCells();
 
 private:
     int move_x,move_y;
-    std::vector<Pos> GetCells();
 };

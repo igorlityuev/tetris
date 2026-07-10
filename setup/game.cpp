@@ -1,15 +1,15 @@
 #include "game.hpp"
+#include "pos.hpp"
+#include <cstdlib>
+#include <ctime>
 #include <raylib.h>
+#include <vector>
 
-
-
-static int rrr=0;
 
 Game::Game(){
     grid = Grid();
-    //! fix Tblock,
-    bloks = {LBlock(), IBlock(),OBlock(), TBlock(),ZBlock(),SBlock()};
-    currentBlock = bloks[0];
+    blocks = {LBlock(), IBlock(),OBlock(), TBlock(),ZBlock(),SBlock()};
+    currentBlock = ChangeFigure();
 }
 
 
@@ -21,36 +21,88 @@ void Game::Draw(){
 
 }
 
+void Game::CheckY() {
 
-
+    int count = 0;
+    for (int y = 19; y >= 0; y--) {
+        bool isFull = true;
+        for (int x = 0; x < 10; x++) {
+            if (grid.grid[y][x] == 0) {
+                isFull = false;
+                break;
+            }
+        }
+        if (isFull){
+            count++;
+            grid.ClearY(y);
+        }
+        else{
+            if (count){
+                grid.Down(y, count);
+            }
+        }
+    }
+}
 
 void Game::MoveDown(){
     currentBlock.Move(0, 1);
+    if (IsOutSite() || IsEmpty()){         
+        currentBlock.Move(0, -1);
+        Lockblock(); 
+
+    }
 }
 void Game::Rotation(){
     int size = currentBlock.GetSize();
-    if (currentBlock.rotation - 1 == -1 ){
-        currentBlock.rotation = size-1;
-    }else{
-        currentBlock.rotation-=1;
+    currentBlock.rotation = (currentBlock.rotation - 1 + size) % size;
+    if (IsOutSite() || IsEmpty()) {
+        currentBlock.rotation = (currentBlock.rotation + 1) % size;
     }
+
 }
 void Game::MoveRight(){
     currentBlock.Move(1, 0);
-
+    if (IsOutSite() || IsEmpty()){         
+        currentBlock.Move(-1, 0);  
+    }
 }
+
 void Game::MoveLeft(){
     currentBlock.Move(-1, 0);
+    if (IsOutSite() ||IsEmpty()){
+        currentBlock.Move(1, 0);
+    }
 }
 
 
-void Game::ChangeFigure(){
-    if (++rrr == bloks.size()){
-        rrr =0;
-        return;
+bool Game::IsEmpty()
+{
+    for (Pos i : currentBlock.GetCells()){
+        if (grid.grid[i.y][i.x] !=0)
+        {
+            return true;  
+        }
     }
-    currentBlock  = bloks[rrr];
+    return false;  
+}
 
+Block Game::ChangeFigure(){
+    srand(static_cast<unsigned>(time(nullptr)));
+    int r = rand() % 6;
+    return blocks[r];
+}
+
+
+
+bool Game::IsOutSite()
+{
+    for (Pos i : currentBlock.GetCells()){
+        if (i.x < 0 || i.x >= grid.width || i.y < 0 || i.y >= grid.height)
+        {
+            return true;  
+        }
+    }
+    return false;  
 }
 
 void Game::HandleInput(){
@@ -63,7 +115,7 @@ void Game::HandleInput(){
             break;
             
         case KEY_O:
-            ChangeFigure();
+            currentBlock = ChangeFigure();
             break;
 
         case KEY_RIGHT:
@@ -82,5 +134,19 @@ void Game::HandleInput(){
             break;
 
     }
+
+}
+
+
+
+void Game::Lockblock()
+{
+    std::vector<Pos> t = currentBlock.GetCells();
+
+    for (Pos i : t){
+        grid.grid[i.y][i.x] = currentBlock.id;
+    }
+    currentBlock = ChangeFigure();
+    CheckY();
 
 }
