@@ -4,6 +4,7 @@
 #include "block.hpp"
 #include "blocks.hpp"
 #include "grid.hpp"
+#include "menu.hpp"
 #include <vector>
 
 
@@ -12,7 +13,7 @@ class Game
 {
 
 public:
-    Game();
+    Game(Menu &m);
     Grid grid;
 
 
@@ -22,7 +23,7 @@ public:
     void HandleInput();
     void MoveDown();
 private:
-
+    Menu& m;
     std::vector<Block> blocks;
     Block currentBlock;
     void Rotation();

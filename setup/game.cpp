@@ -3,10 +3,9 @@
 #include <cstdlib>
 #include <ctime>
 #include <raylib.h>
-#include <vector>
 
 
-Game::Game(){
+Game::Game(Menu &m) : m(m){
     grid = Grid();
     blocks = {LBlock(), IBlock(),OBlock(), TBlock(),ZBlock(),SBlock()};
     currentBlock = ChangeFigure();
@@ -42,6 +41,8 @@ void Game::CheckY() {
             }
         }
     }
+    m.SetPoints(count);
+
 }
 
 void Game::MoveDown(){

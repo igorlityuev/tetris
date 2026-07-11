@@ -2,6 +2,10 @@
 #include "setup/game.hpp"
 #include <cstdlib>
 #include <ctime>
+#include "setup/menu.hpp"
+
+
+
 
 double lastTime = 0;
 
@@ -17,8 +21,8 @@ bool Interval(double interval){
 int main() {
     srand(static_cast<unsigned>(time(nullptr)));
     const int ScreenWidth = 600, ScreenHeight=600;
-    Game g = Game();
-
+    Menu m = Menu();
+    Game g = Game(m);
 
 
     InitWindow(ScreenWidth, ScreenHeight, "raylib test");
@@ -29,12 +33,13 @@ int main() {
 
     while (!WindowShouldClose()) {
         g.HandleInput();
-        if (Interval(1)){
+        if (Interval(m.GetInterval())){
             g.MoveDown();
         }
         BeginDrawing();
         ClearBackground(bg);
         g.Draw();
+        m.Draw();
         EndDrawing();
     }
 
